@@ -1,5 +1,3 @@
-<img width="595" alt="Screenshot 2024-12-01 at 19 33 20" src="https://github.com/user-attachments/assets/dae8bca3-4c97-404b-be70-126e957772d3"># Jarkom-Modul-5-IT25-2024
-
 # Anggota Kelompok
 | Nama  | NRP  |
 |----------|----------|
