@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/858138eb-0853-487d-9557-9b4e03237947)![image](https://github.com/user-attachments/assets/a13ec393-1635-4e26-816c-28cdb925893b)![image](https://github.com/user-attachments/assets/2a5b7e7d-38a2-414e-b5f0-4868bb49201b)# Anggota Kelompok
+# Anggota Kelompok
 | Nama  | NRP  |
 |----------|----------|
 | Fikri Aulia As Sa'adi  | 5027231026 |
