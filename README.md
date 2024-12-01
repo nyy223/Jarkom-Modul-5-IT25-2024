@@ -1,4 +1,4 @@
-# Anggota Kelompok
+![image](https://github.com/user-attachments/assets/5ab71991-7c83-4b8b-b617-38336eaaa25e)![image](https://github.com/user-attachments/assets/7cee0a2c-82aa-4463-ba81-55c4e43751d2)![image](https://github.com/user-attachments/assets/e14fa148-7a22-4b09-9d0a-d798956a6bb3)![image](https://github.com/user-attachments/assets/6805ac4d-edf0-4d45-b93a-7a07d945301f)![image](https://github.com/user-attachments/assets/73c67660-f5a8-47d9-bb29-3d0d0c82942c)# Anggota Kelompok
 | Nama  | NRP  |
 |----------|----------|
 | Fikri Aulia As Sa'adi  | 5027231026 |
@@ -387,6 +387,37 @@ Ketikkan command berikut di web console HIA
 <img width="315" alt="Screenshot 2024-12-01 at 20 47 31" src="https://github.com/user-attachments/assets/7de5f032-509d-442d-8605-a33e19ad8d01">
 
 ## Misi 2 No. 6
+### Buat konfigurasi untuk memblokir aktivitas port scanning yang melebihi 25 port dalam rentang 10 detik, penyerang yang diblokir tidak bisa ping, nc, atau curl ke HIA, log dari iptables akan tercatat untuk analisis.
+```
+# Atur rate limit untuk port scanning (maksimum 25 koneksi per 10 detik)
+iptables -N PORTSCAN
+iptables -A INPUT -p tcp --dport 1:100 -m state --state NEW -m recent --set --name portscan
+iptables -A INPUT -p tcp --dport 1:100 -m state --state NEW -m recent --update --seconds 10 --hitcount 25 --name portscan -j PORTSCAN
+
+# Blokir IP yang terdeteksi melakukan port scanning tidak wajar
+iptables -A PORTSCAN -m recent --set --name blacklist
+iptables -A PORTSCAN -j DROP
+
+# Blokir semua aktivitas dari IP yang ada di daftar blacklist
+iptables -A INPUT -m recent --name blacklist --rcheck -j REJECT
+iptables -A OUTPUT -m recent --name blacklist --rcheck -j REJECT
+
+# Logging untuk port scanning
+iptables -A PORTSCAN -j LOG --log-prefix='PORT SCAN DETECTED' --log-level 4
+```
+### Tes melakukan nmap dengan Jane, maka otomatis akan terblokir dan tidak bisa curl
+<img width="618" alt="Screenshot 2024-12-02 at 02 42 10" src="https://github.com/user-attachments/assets/ab3e4856-4c5d-49ab-aebd-49ded6cd193d">
+
+### Tetap bisa curl dengan Policeboo
+<img width="573" alt="Screenshot 2024-12-02 at 02 42 20" src="https://github.com/user-attachments/assets/ea424173-91f6-4c3f-a39e-b8a75950ad37">
+
+### Tes netcat
+#### Jane akan terblokir dan tidak bisa nc
+<img width="844" alt="Screenshot 2024-12-02 at 02 43 22" src="https://github.com/user-attachments/assets/773deacc-425e-41ca-9d6a-2f53a6910d61">
+
+#### Policeboo tetap bisa nc seperti biasa
+<img width="842" alt="Screenshot 2024-12-02 at 02 43 46" src="https://github.com/user-attachments/assets/26fbea32-291f-4e41-b927-bc6246ab74a3">
+
 
 ## Misi 2 No. 7
 Masuk ke web console HollowZero dan ketikkan command
@@ -396,9 +427,34 @@ Masuk ke web console HollowZero dan ketikkan command
 
 #### Coba test dari web console client mana saja, ketikkan command
 `parallel curl -s 10.76.2.130 ::: 10.76.2.68 10.76.2.67 10.76.1.3 10.76.1.2`
+<img width="830" alt="Screenshot 2024-12-02 at 02 44 25" src="https://github.com/user-attachments/assets/1afef3b0-76f3-46bf-8255-8a9c89ad3a74">
 
 Terlihat bahwa hanya 2 koneksi yang bisa curl
 
 ## Misi 2 No. 8
+### Buat konfigurasi agar setiap paket yang dikirim Fairy ke Burnice akan dialihkan ke HollowZero
+```
+iptables -t nat -A PREROUTING -p tcp -j DNAT --to-destination 10.76.2.130 --dport 3030
+iptables -A FORWARD -p tcp -d 10.76.2.130 -j ACCEPT
+```
 
+### Tes mengirim paket dari Fairy ke Burnice
+<img width="530" alt="Screenshot 2024-12-02 at 02 45 16" src="https://github.com/user-attachments/assets/271a2721-4420-4b5a-880c-647c6ef8958b">
 
+### Cek dengan tcpdump di HollowZero untuk mengetahui apakah ada paket masuk
+`tcpdump -i eth0 host 10.76.2.11 and port 3030`
+<img width="758" alt="Screenshot 2024-12-02 at 02 45 25" src="https://github.com/user-attachments/assets/314933c6-0aab-4cd6-9da3-6891c08b0875">
+
+## Misi 3
+### Buat konfigurasi burnice tidak bisa mengirim atau menerima paket
+```
+iptables --policy INPUT DROP
+iptables --policy OUTPUT DROP
+iptables --policy FORWARD DROP
+```
+### Tes
+#### Burnice ping ke client lain
+<img width="757" alt="Screenshot 2024-12-02 at 02 46 20" src="https://github.com/user-attachments/assets/46615d8c-d6da-44db-af5c-a12b4b8b8097">
+
+### Client lain ping ke burnice
+<img width="756" alt="Screenshot 2024-12-02 at 02 46 44" src="https://github.com/user-attachments/assets/b7d878be-19b7-4493-a3c5-26ad0537ab82">
