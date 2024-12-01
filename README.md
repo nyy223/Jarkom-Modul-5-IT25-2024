@@ -1,4 +1,4 @@
-# Anggota Kelompok
+![image](https://github.com/user-attachments/assets/858138eb-0853-487d-9557-9b4e03237947)![image](https://github.com/user-attachments/assets/a13ec393-1635-4e26-816c-28cdb925893b)![image](https://github.com/user-attachments/assets/2a5b7e7d-38a2-414e-b5f0-4868bb49201b)# Anggota Kelompok
 | Nama  | NRP  |
 |----------|----------|
 | Fikri Aulia As Sa'adi  | 5027231026 |
@@ -343,6 +343,25 @@ Ketikkan command berikut di web console milik Fairy
 <img width="504" alt="Screenshot 2024-12-01 at 19 33 29" src="https://github.com/user-attachments/assets/7f9e3730-190a-49a7-bdeb-d5cd794b2dd1">
 
 ## Misi 2 No. 3
+### Buat konfigurasi iptables untuk melarang ping dari semua jaringan, lalu tambahkan ip Fairy agar diijinkan ping
+`iptables -P INPUT DROP`
+`iptables -A INPUT -s 10.76.2.11 -j ACCEPT`
+### Tes dengan ping
+#### Fairy bisa ping HDD
+<img width="999" alt="Screenshot 2024-12-01 at 22 18 38" src="https://github.com/user-attachments/assets/590ff0a6-f178-401a-8a06-c7c2d7ba403a">
+
+#### Selain Fairy tidak bisa ping HDD
+<img width="1002" alt="Screenshot 2024-12-01 at 22 19 39" src="https://github.com/user-attachments/assets/6dac38e6-f438-46da-ad56-33597cf3017a">
+
+### Tes dengan netcat
+### Lakukan tes nc di SixStreet
+<img width="999" alt="Screenshot 2024-12-01 at 22 20 18" src="https://github.com/user-attachments/assets/795c1757-c169-4189-9036-b7b1bc54ebbe">
+
+### Lakukan tes nc di Fairy
+<img width="995" alt="Screenshot 2024-12-01 at 22 20 40" src="https://github.com/user-attachments/assets/830ed844-0e51-44bc-8a19-7b630265aa44">
+
+### nc yang diterima oleh HDD hanya dari Fairy
+<img width="468" alt="Screenshot 2024-12-01 at 22 22 03" src="https://github.com/user-attachments/assets/24d2fa6a-29df-4168-b033-b34fb227eb31">
 
 ## Misi 2 No. 4
 Ketikkan command berikut di web console HollowZero
