@@ -337,9 +337,14 @@ service apache2 restart
 
 ## Misi 2 No. 2
 Ketikkan command berikut di web console milik Fairy
-`iptables -A INPUT -p icmp --icmp-type echo-request -j DROP`
+```
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+```
 
-`iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT`
+```
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+```
+
 #### Test ping dari fairy ke node lain
 <img width="595" alt="Screenshot 2024-12-01 at 19 33 20" src="https://github.com/user-attachments/assets/1c2ccf33-795c-4014-a720-71bb7de84f0d">
 
@@ -348,8 +353,14 @@ Ketikkan command berikut di web console milik Fairy
 
 ## Misi 2 No. 3
 ### Buat konfigurasi iptables untuk melarang ping dari semua jaringan, lalu tambahkan ip Fairy agar diijinkan ping
-`iptables -P INPUT DROP`
-`iptables -A INPUT -s 10.76.2.11 -j ACCEPT`
+```
+iptables -P INPUT DROP
+```
+
+```
+iptables -A INPUT -s 10.76.2.11 -j ACCEPT
+```
+
 ### Tes dengan ping
 #### Fairy bisa ping HDD
 <img width="999" alt="Screenshot 2024-12-01 at 22 18 38" src="https://github.com/user-attachments/assets/590ff0a6-f178-401a-8a06-c7c2d7ba403a">
@@ -369,23 +380,38 @@ Ketikkan command berikut di web console milik Fairy
 
 ## Misi 2 No. 4
 Ketikkan command berikut di web console HollowZero
-`iptables -P INPUT DROP`
-`iptables -A INPUT -s 10.76.2.64/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT`
-`iptables -A INPUT -s 10.76.1.0/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT`
+```
+iptables -P INPUT DROP
+```
+```
+iptables -A INPUT -s 10.76.2.64/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+```
+```
+iptables -A INPUT -s 10.76.1.0/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+```
 #### Test Burnice ping ke HollowZero tapi gabisa karena sekarang Minggu
 <img width="518" alt="Screenshot 2024-12-01 at 20 15 55" src="https://github.com/user-attachments/assets/a4fc47c4-3399-4ba6-87a7-5e9c8876b605">
 
 Coba ubah aturannya agar mengizinkan hari minggu dengan mengetikkan command
-`iptables -A INPUT -s 10.76.2.64/26 -m time --weekdays Sun -j ACCEPT`
+```
+iptables -A INPUT -s 10.76.2.64/26 -m time --weekdays Sun -j ACCEPT
+```
 
 #### Test Burnice ping dan curl ke HollowZero dan sudah bisa :D
 <img width="614" alt="Screenshot 2024-12-01 at 20 39 21" src="https://github.com/user-attachments/assets/920b6dc8-6458-4f4a-bd98-2f0a6504709a">
 
 ## Misi 2 No. 5
 Ketikkan command berikut di web console HIA
-`iptables -P INPUT DROP`
-`iptables -A INPUT -s 10.76.0.128/25 -m time --timestart 08:00 --timestop 21:00 -j ACCEPT`
-`iptables -A INPUT -s 10.76.1.0/24 -m time --timestart 03:00 --timestop 23:00 -j ACCEPT`
+```
+iptables -P INPUT DROP
+```
+```
+iptables -A INPUT -s 10.76.0.128/25 -m time --timestart 08:00 --timestop 21:00 -j ACCEPT
+```
+```
+iptables -A INPUT -s 10.76.1.0/24 -m time --timestart 03:00 --timestop 23:00 -j ACCEPT
+```
+
 #### Test Lycaon dan Jane curl ke HIA masih bisa karena masih dalam waktu yang diperbolehkan
 <img width="316" alt="Screenshot 2024-12-01 at 20 47 03" src="https://github.com/user-attachments/assets/02d054bb-620a-42fc-9b9d-eaf01e52fe27">
 <img width="315" alt="Screenshot 2024-12-01 at 20 47 31" src="https://github.com/user-attachments/assets/7de5f032-509d-442d-8605-a33e19ad8d01">
@@ -425,12 +451,20 @@ iptables -A PORTSCAN -j LOG --log-prefix='PORT SCAN DETECTED' --log-level 4
 
 ## Misi 2 No. 7
 Masuk ke web console HollowZero dan ketikkan command
-`iptables -A INPUT -p tcp --dport http -m conntrack --ctstate NEW -m recent --set`
-`iptables -A INPUT -p tcp --dport http -m conntrack --ctstate NEW -m recent --update --seconds 1 --hitcount 3 -j REJECT`
-`iptables -A INPUT -p tcp --dport http -j ACCEPT`
+```
+iptables -A INPUT -p tcp --dport http -m conntrack --ctstate NEW -m recent --set
+```
+```
+iptables -A INPUT -p tcp --dport http -m conntrack --ctstate NEW -m recent --update --seconds 1 --hitcount 3 -j REJECT
+```
+```
+iptables -A INPUT -p tcp --dport http -j ACCEPT
+```
 
 #### Coba test dari web console client mana saja, ketikkan command
-`parallel curl -s 10.76.2.130 ::: 10.76.2.68 10.76.2.67 10.76.1.3 10.76.1.2`
+```
+parallel curl -s 10.76.2.130 ::: 10.76.2.68 10.76.2.67 10.76.1.3 10.76.1.2
+```
 <img width="830" alt="Screenshot 2024-12-02 at 02 44 25" src="https://github.com/user-attachments/assets/1afef3b0-76f3-46bf-8255-8a9c89ad3a74">
 
 Terlihat bahwa hanya 2 koneksi yang bisa curl
