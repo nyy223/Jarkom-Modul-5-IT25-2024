@@ -384,10 +384,10 @@ Ketikkan command berikut di web console HollowZero
 iptables -P INPUT DROP
 ```
 ```
-iptables -A INPUT -s 10.76.2.64/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -s 10.76.2.64/26 -m time --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
 ```
 ```
-iptables -A INPUT -s 10.76.1.0/26 -m time —weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -s 10.76.1.0/26 -m time --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
 ```
 #### Test Burnice ping ke HollowZero tapi gabisa karena sekarang Minggu
 <img width="518" alt="Screenshot 2024-12-01 at 20 15 55" src="https://github.com/user-attachments/assets/a4fc47c4-3399-4ba6-87a7-5e9c8876b605">
