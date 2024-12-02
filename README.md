@@ -414,7 +414,6 @@ iptables -A INPUT -s 10.76.1.0/24 -m time --timestart 03:00 --timestop 23:00 -j 
 
 #### Test Lycaon dan Jane curl ke HIA masih bisa karena masih dalam waktu yang diperbolehkan
 <img width="316" alt="Screenshot 2024-12-01 at 20 47 03" src="https://github.com/user-attachments/assets/02d054bb-620a-42fc-9b9d-eaf01e52fe27">
-<img width="315" alt="Screenshot 2024-12-01 at 20 47 31" src="https://github.com/user-attachments/assets/7de5f032-509d-442d-8605-a33e19ad8d01">
 
 ## Misi 2 No. 6
 ### Buat konfigurasi untuk memblokir aktivitas port scanning yang melebihi 25 port dalam rentang 10 detik, penyerang yang diblokir tidak bisa ping, nc, atau curl ke HIA, log dari iptables akan tercatat untuk analisis.
