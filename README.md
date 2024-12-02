@@ -240,7 +240,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
 ```
 
 ## Misi 1 No. 4
-### LuminaSquare, BalletTwins, SixStreet, OuterRing
+### LuminaSquare, BalletTwins, SixStreet, OuterRing sebagai DNS Relay
 ```
 echo 'SERVERS="10.76.2.11"
 INTERFACES="eth0 eth1 eth2 eth3"
@@ -251,7 +251,7 @@ echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf
 
 service isc-dhcp-relay restart
 ```
-### Fairy
+### Fairy sebagai DHCP Server
 ```
 apt-get update
 apt-get install isc-dhcp-server netcat -y
@@ -299,7 +299,7 @@ subnet 10.76.2.128 netmask 255.255.255.252 {}
 
 service isc-dhcp-server restart
 ```
-### HDD
+### HDD sebagai DNS Server
 ```
 apt-get update
 apt-get install bind9 netcat -y
@@ -319,7 +319,7 @@ echo 'options {
 
 service bind9 restart
 ```
-### HIA, HollowZero
+### HIA, HollowZero sebagai Webserver
 ```
 apt-get update
 apt-get install apache2 netcat -y
